@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Expenditure Overview</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Government Expenditure Overview</h1>
+
+        <div class="expenditure-box">
+            <h2>Tax Collected by Category</h2>
+            <div class="box">
+                <p><strong>People with Salary below ₹2.5 Lakh:</strong> ₹{{ grouped_tax['below_2_5_lakh'] }}</p>
+            </div>
+            <div class="box">
+                <p><strong>People with Salary between ₹2.5 Lakh and ₹5 Lakh:</strong> ₹{{ grouped_tax['between_2_5_and_5_lakh'] }}</p>
+            </div>
+            <div class="box">
+                <p><strong>People with Salary between ₹5 Lakh and ₹10 Lakh:</strong> ₹{{ grouped_tax['between_5_and_10_lakh'] }}</p>
+            </div>
+            <div class="box">
+                <p><strong>People with Salary above ₹10 Lakh:</strong> ₹{{ grouped_tax['above_10_lakh'] }}</p>
+            </div>
+        </div>
+
+        <h2>Expenditure Breakdown</h2>
+        <div class="expenditure-grid">
+            {% for category, amount in expenditure_details.items() %}
+                <div class="expenditure-item">
+                    <h3>{{ category }}:</h3>
+                    <p>Allocated: ₹{{ amount }}</p>
+                    <p><strong>Spent (90%):</strong> ₹{{ amount * 0.9 }}</p>
+                    <p><strong>Remaining (10%):</strong> ₹{{ amount * 0.1 }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="summary">
+            <h2>Overall Summary</h2>
+            <p><strong>Total Tax Collected:</strong> ₹{{ total_tax_collected }}</p>
+            <p><strong>Total Expenditure (90%):</strong> ₹{{ total_expenditure }}</p>
+            <p><strong>Remaining (10%):</strong> ₹{{ remaining_10_percent }}</p>
+            <p>This remaining 10% is allocated to the <strong>Reserve Fund</strong> for future use, debt repayment, or other government purposes.</p>
+        </div>
+
+        <a href="/" class="gov-link">Back to Tax Payment</a>
+    </div>
+</body>
+</html>
